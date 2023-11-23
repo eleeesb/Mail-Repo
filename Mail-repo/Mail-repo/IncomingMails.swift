@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct IncomingMails: View {
+    
     @State private var searchText = ""
+    @State var showModal = false
+    
+    
     var body: some View {
             NavigationStack {
                 List {
@@ -20,19 +24,17 @@ struct IncomingMails: View {
                                     Text(item.subtitle)
                                     Text(item.content)
                                         .foregroundStyle(.gray)
+                                        .lineLimit(2)
+
                                 }
                             }
                         }
                 }
                 .listStyle(PlainListStyle())
-                .navigationTitle("Incoming")
+                .navigationTitle("Inbox")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing){
-                        Button {
-                            // Perform an Action
-                            print("Incoming")
-                        } label: {
-                            Text("Edit")
+                        Button("Edit") {
                         }
                             
                         }
@@ -56,11 +58,14 @@ struct IncomingMails: View {
                                     .foregroundStyle(.gray)
                             }
                         Spacer()
-                            Button {
+                            Button(action: {
                                 // Perform an Action
-                                print("Updated Just Now")
-                            } label: {
+                                self.showModal.toggle()
+                            }) {
                                 Image(systemName: "square.and.pencil")
+                            }
+                            .sheet(isPresented: $showModal) {
+                                NewMessageView()
                             }
                         }  .searchable(text: $searchText)
 

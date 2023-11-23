@@ -8,45 +8,77 @@
 import SwiftUI
 
 struct NewMessageView: View {
+    
+    @Environment(\.dismiss) var cancel
+    @State private var isEditing = false
+    @State private var toText: String = ""
+    @State private var fromText: String = ""
+    @State private var objectText: String = ""
+    
     var body: some View {
         NavigationStack {
-            VStack {
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("New Message")
+                        .bold()
+                        .font(.largeTitle)
+                        .padding(.horizontal, 17)
+                    Spacer(minLength: -10)
+                    Button {
+                    } label: {
+                        Image(systemName: "arrow.up.circle.fill")
+                            .foregroundStyle(.gray, .fill)
+                            .scaleEffect(2.4)
+                            .padding(.horizontal, 30)
+                            .imageScale(.medium)
+                    }
+                
+                }
+                Spacer(minLength: 20)
                 HStack {
                     List {
                         HStack {
+                            
                             Text("To:")
                                 .foregroundStyle(.gray)
                             Spacer(minLength: 5)
+                            TextField(text: $toText) {
+                                EmptyView()
+                            }
                             Button {
                             } label: {
                                 Image(systemName: "plus.circle")
                                     .foregroundStyle(.blue)
+                                    .imageScale(.large)
+                                    
                             }
                         }
-                        .navigationTitle("New Message")
                         HStack {
-                            Text("Cc/Ccn, From: eesposito23@fed.idserve.net")
+                            Text("Cc/Bcc, From:")
                                 .foregroundStyle(.gray)
+                            TextField(text: $fromText) {
+                                EmptyView()
+                            }
                         }
-                        Text("Object:")
-                            .foregroundStyle(.gray)
+                        HStack {
+                            Text("Object:")
+                                .foregroundStyle(.gray)
+                            TextField(text: $objectText) {
+                                EmptyView()
+                            }
+                        }
                     }
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
-                            Button {
-                            } label: {
-                                Text("Annulla")
+                            Button("Cancel") {
+                                cancel()
                             }
                         }
                     }
                     .listStyle(.plain)
                 }
-                Text("Sent from Iphone")
-                    Spacer(minLength: 480)
-                
             }
             
-                
         }
         
     }

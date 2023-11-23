@@ -11,7 +11,7 @@ struct ContentView: View {
     
     @State private var selectedOption: String = "Option 1"
     @State private var topExpanded: Bool = true
-    
+    @State var showModal = false
     @State private var isFedExpanded: Bool = true
     
     var body: some View {
@@ -24,8 +24,8 @@ struct ContentView: View {
                                 IncomingMails()}, label:{
                                     Image(systemName: "tray")
                                         .foregroundStyle(.blue)
-                                    Text("Incoming")
-                                    Spacer(minLength: 180)
+                                    Text("Inbox")
+                                    Spacer(minLength: 210)
                                     
                                     Text("2")
                                         .foregroundStyle(.gray)
@@ -33,11 +33,11 @@ struct ContentView: View {
                             )}
                         HStack{
                             NavigationLink(destination: {
-                                IncomingMails()}, label:{
+                                EmptyView()}, label:{
                                     Image(systemName: "star")
                                         .foregroundColor(.yellow)
                                     Text("VIP")
-                                    Spacer(minLength: 227)
+                                    Spacer(minLength: 230)
                                     Text("1")
                                         .foregroundStyle(.gray)
                                     
@@ -45,10 +45,11 @@ struct ContentView: View {
                             )}
                     } header: {
                     }
-                    Section("fed.idserve.net", isExpanded: $isFedExpanded) {
+                
+                    Section(isExpanded: $isFedExpanded) {
                             HStack {
                                 NavigationLink(destination: {
-                                    IncomingMails()}, label:{
+                                    EmptyView()}, label:{
                                         Image(systemName: "doc")
                                             .foregroundStyle(.blue)
                                         Text("Drafts")
@@ -56,7 +57,7 @@ struct ContentView: View {
                                 )}
                             HStack {
                                 NavigationLink(destination: {
-                                    IncomingMails()}, label:{
+                                   EmptyView()}, label:{
                                         Image(systemName: "paperplane")
                                             .foregroundStyle(.blue)
                                         Text("Sent")
@@ -64,30 +65,30 @@ struct ContentView: View {
                                 )}
                             HStack {
                                 NavigationLink(destination: {
-                                    IncomingMails()}, label:{
-                                        Image(systemName: "trash")
+                                    EmptyView()}, label:{
+                                        Image(systemName: "xmark.bin")
                                             .foregroundStyle(.blue)
-                                        Text("Trash")
+                                        Text("Junk")
                                     }
                                 )}
                             HStack {
                                 NavigationLink(destination: {
-                                    IncomingMails()}, label:{
-                                        Image(systemName: "xmark.bin")
+                                    EmptyView()}, label:{
+                                        Image(systemName: "trash")
                                             .foregroundStyle(.blue)
                                         Text("Bin")
                                     }
                                 )}
 
-                    } // header: {
-//                        Text("fed.idserve.net")
-//                            .font(.title3)
-//                            .frame(width: 150, alignment: .topLeading)
-//                            .foregroundColor(.black)
-//                            .bold()
-//                            .textCase(.lowercase)
-//
-//                    }
+                    }  header: {
+                  Text("fed.idserve.net")
+                            .font(.title3)
+                            .frame(width: 150, alignment: .topLeading)
+                            .foregroundColor(.black)
+                            .bold()
+                           .textCase(.lowercase)
+
+                   }
                 }
                 .listStyle(.sidebar)
                 .navigationTitle("Mailboxes")
@@ -107,12 +108,14 @@ struct ContentView: View {
                             Text("Updated Just Now")
                                 .font(.system(size: 12, weight: .light, design: .default))
                                 .foregroundStyle(.black)
-                            Button {
-                                // Perform an Action
-                                print("Add item tapped")
-                            } label: {
+                            Button(action: {
+                                self.showModal.toggle()
+                            }) {
                                 Image(systemName: "square.and.pencil")
                                 
+                            }
+                            .sheet(isPresented: $showModal) {
+                                NewMessageView()
                             }
                             
                         }

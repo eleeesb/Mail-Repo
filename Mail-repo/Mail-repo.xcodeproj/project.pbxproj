@@ -70,6 +70,7 @@
 				02E0AF612B0366E9000B4702 /* Assets.xcassets */,
 				02E0AF632B0366E9000B4702 /* Preview Content */,
 				02E0AF6B2B038242000B4702 /* IncomingMails.swift */,
+				02E0AF732B06336A000B4702 /* SectionHeaderView.swift */,
 				02E0AF792B077823000B4702 /* FloatingMenu.swift */,
 				02E0AF7B2B0BE8E3000B4702 /* NewMessageView.swift */,
 			);
@@ -82,7 +83,6 @@
 				02E0AF642B0366E9000B4702 /* Preview Assets.xcassets */,
 				02E0AF6D2B0387A9000B4702 /* CategoryModel.swift */,
 				02E0AF772B076D32000B4702 /* IncomingMailsModel.swift */,
-				02E0AF732B06336A000B4702 /* SectionHeaderView.swift */,
 				02E0AF752B065A19000B4702 /* ShownMailView.swift */,
 			);
 			path = "Preview Content";
